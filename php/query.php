@@ -2,6 +2,7 @@
 include("dbcon.php");
 //category reference
 $categoryref="img/category/";
+$productref="img/product/";
 if (isset($_POST["addcategory"])){
     $catName = $_POST["cName"];
     $catImageName = $_FILES['cImage']['name'];
@@ -79,17 +80,17 @@ if(isset($_GET['deleteKey'])){
 //Add product
 if(isset($_POST['addproduct'])){
 $productName = $_POST['pName'];
-$productPrice = $_POST['productPrice'];
-$productDescription = $_POST['productDescription'];
-$productQuantity = $_POST['productQuantity'];
+$productPrice = $_POST['pPrice'];
+$productDescription = $_POST['pDescription'];
+$productQuantity = $_POST['pQuantity'];
 $productCatid = $_POST['pCatid'];
-$productImageName = $_FILES['productImage']["name"];
-$productTmpName = $_FILES['productImage']["tmp_name"];
+$productImageName = $_FILES['pImage']["name"];
+$productTmpName = $_FILES['pImage']["tmp_name"];
 $extension = pathinfo($productImageName,PATHINFO_EXTENSION);
 $desig = "img/product/".$productImageName;
 if($extension =="jpg" || $extension =="png" || $extension == "jpeg" || $extension =="webp") {
     if(move_uploaded_file($productTmpName,$desig)){
-        $query = $pdo->prepare("INSERT INTO products(productname, productquantity, productprice, productdescription, productimage, productcatid) VALUES(:pn,:pq,:pp,:pd,:pi,:pc)");
+        $query = $pdo->prepare("INSERT INTO products(productname, productquantity, productprice, productdescription, productImage, productcatid) VALUES(:pn,:pq,:pp,:pd,:pi,:pc)");
         $query->bindParam("pn", $productName);
         $query->bindParam("pq", $productQuantity);
         $query->bindParam("pp", $productPrice);
@@ -97,7 +98,8 @@ if($extension =="jpg" || $extension =="png" || $extension == "jpeg" || $extensio
         $query->bindParam("pi", $productImageName);
         $query->bindParam("pc", $productCatid);
         $query->execute();
-        echo "<script>alert('product added successfully')</script>";
+        echo "<script>alert('product added successfully')
+        location.assign(viewproducts.php)</script>";
 
     }else
     {
