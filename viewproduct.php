@@ -27,7 +27,7 @@ include("components/header.php");
                                         <?php
                                         $query = $pdo->query("SELECT products.*, categories.catName
                                         FROM products 
-                                            INNER JOIN categories ON products.productcatId = categories.catId;");
+                                            INNER JOIN categories ON products.productId = categories.catId;");
                                         $prorow = $query ->fetchAll(PDO::FETCH_ASSOC);
                                         foreach($prorow as $values){
                                                 ?>
@@ -38,7 +38,7 @@ include("components/header.php");
                                             <td><?php echo $values['productDescription']?></td>
                                             <td><?php echo $values['catName']?></td>
                                             <td><?php echo $values['productQuantity']?></td>
-                                            <td><img src="<?php echo $productref.$values['productImage']?>" alt="" width="80px"></td>
+                                            <td><img src="<?php echo $proref.$values['proImage']?>" alt="" width="80px"></td>
                                             <td><a href="updateproduct.php?pId=<?php echo $values['productId'] ?>" class="btn btn-success">Edit</a></td>
                                             <td><a href="?prodeleteKey=<?php echo $values['productId'] ?>" class="btn btn-danger">Delete</a></td>
                                         </tr>

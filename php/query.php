@@ -1,7 +1,15 @@
 <?php
 include("dbcon.php");
-// category ref
-$catref ='img/category/';
+//category reference
+$categoryref="img/category/";
+if (isset($_POST["addcategory"])){
+    $catName = $_POST["cName"];
+    $catImageName = $_FILES['cImage']['name'];
+    $catTmpName =$_FILES['cImage']['tmp_name'];
+    $extension =pathinfo($catImageName,PATHINFO_EXTENSION);
+    $desig = "img/category/".$catImageName;
+    if($extension=="jpg"||$extension =="jpeg"|| $extension =="png" ||$extension== "webp")
+    {
 
 if(isset($_POST['add_category'])){ // Changed button name
     $catName = $_POST['cName'];
